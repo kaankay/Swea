@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SWEA weaeinkauf</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load custom_filters %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <!-- MDB für Tab-Option -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'weaeinkauf/style.css' %}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar bg-primary navbar-expand-lg custom-navbar">
+        <a class="ms-2" href="{% url 'go_to_homepage' %}">
+        <span class="material-symbols-outlined text-white">
+            home
+        </span>
+        </a>
+        <div class="container-fluid justify-content-center">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Quellen
+                    </button>
+                    <ul class="dropdown-menu py-0 bg-secondary border-0">
+                        <li><a class="dropdown-item text-white custom-hover" href="{% url 'quellenAnzeigen' %}">Quellen anzeigen</a>
+                        </li>
+                        <li><a class="dropdown-item text-white custom-hover" href="{% url 'quellenEintragen' %}">Quellen eintragen</a>
+                        </li>
+                    </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'weapreiseAnzeigen' %}">WEA Preise</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{% url 'servicepreiseAnzeigen' %}">Servicepreise</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Hersteller</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">WEA</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Projekte</a>
+                </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown me-2 position-absolute" style="right: 0;">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Willkommen {{ user.username }}
+            </button>
+            <ul class="dropdown-menu py-0 bg-secondary border-0">
+                <li><a class="dropdown-item text-white custom-hover" href="" id="logout">Ausloggen</a></li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+    <div class="row p-4">
+        <div class="col-12 col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mt-2"> Servicepreise </h4>
+                    <p class="mb-0">Service Preis ID : {{servicePreisDetail.id}}</p>
+                </div>
+                <div class="card-body">
+
+                    <!-- Tabs navs -->
+                    <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link active" id="ex1-tab-1" href="#ex1-tabs-1" role="tab"
+                                aria-controls="ex1-tabs-1" aria-selected="true">Generelles</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link" id="ex1-tab-2" href="#ex1-tabs-2" role="tab"
+                                aria-controls="ex1-tabs-2" aria-selected="false">Preise</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a data-mdb-tab-init class="nav-link" id="ex1-tab-3" href="#ex1-tabs-3" role="tab"
+                                aria-controls="ex1-tabs-3" aria-selected="false">Auswertung</a>
+                        </li>
+                    </ul>
+                    <!-- Tabs navs -->
+
+                    <!-- Tabs content -->
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
+                            aria-labelledby="ex1-tab-1">
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0" style="font-weight: 500;">Name</label>
+                                        <p>{{servicePreisDetail.name}}</p>
+                                </div>
+                                <!-- <div class="col-12 col-sm-6 col-lg-4 p-2 ms-3">
+                                    <div class="d-flex align-items-center">
+                                        <label for="quelleId" class="form-label mb-0 ps-1"
+                                            style="font-weight: 500;">Projekt
+                                        </label>
+                                        <span class="material-symbols-outlined ms-1 pb-1">
+                                            help
+                                        </span>
+                                    </div>
+
+                                    <button class="btn btn-primary d-flex align-items-center">Projekt hinzufügen <span
+                                            class="material-symbols-outlined ms-2"
+                                            style="font-size: 18px;">add</span></button>
+                                </div> -->
+
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0"
+                                        style="font-weight: 500;">Vertragslaufzeit <span class="fw-lighter">in Jahren
+                                        </span></label>
+                                    <p>{{servicePreisDetail.laufzeit}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0" style="font-weight: 500;">Basisjahr
+                                        zur Indexierung</label>
+                                    <p>{{servicePreisDetail.basisjahr}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0" style="font-weight: 500;">Grenzwert in
+                                        MWh</label>
+                                    <p>{{servicePreisDetail.grenzwert}}</p>
+                                </div>
+                                <!-- <div class="col-12 col-sm-6 col-lg-4 p-2 ms-3">
+                                    <div class="d-flex align-items-center">
+                                        <label for="quelleId" class="form-label mb-0 ps-1" style="font-weight: 500;">WEA
+                                        </label>
+                                        <span class="material-symbols-outlined ms-1 pb-1">
+                                            help
+                                        </span>
+                                    </div>
+                                    <button class="btn btn-primary d-flex align-items-center">WEA hinzufügen <span
+                                            class="material-symbols-outlined ms-2" style="font-size: 18px;">add</span>
+                                    </button>
+                                </div> -->
+
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0" style="font-weight: 500;">Bemerkung</label>
+                                    <p>{{servicePreisDetail.bemerkung}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-5 p-2">
+                                    <label for="quelleId" class="form-label mb-0"Carpedie
+                                        style="font-weight: 500;">Kündigungsrecht
+                                    </label>
+                                    <p>{{servicePreisDetail.kuendigungsrecht}}</p>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-12 col-sm-6 col-lg-4 p-2">
+                                    <span style="font-weight: 500;">Erstellt von
+                                    </span>
+                                    <p>{{servicePreisDetail.created_by}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+                            <!-- Tabs content -->
+                            <div class="card-body justify-content-center mt-5">
+                                <table class="table table-striped table-hover table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Jahr</th>
+                                            <th scope="col">Indexierung <br> in %</th>
+                                            <th scope="col">Mindestpreis <br> in €</th>
+                                            <th scope="col">Fixpreis <br> in €</th>
+                                            <th scope="col">Variable Kosten ct/kwh</th>
+                                            <th scope="col">Bemerkung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for service in verguetung %}
+                                        <tr>
+                                            <th scope="row">{{service.jahr}}</th>
+                                            <td>{{service.indexierung}}</td>
+                                            <td>{{service.minPreis|format_currency}}</td>
+                                            <td>{{service.fix|format_currency}}</td>
+                                            <td>{{service.var}}</td>
+                                            <td>{{service.bemerkung}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+                            <!-- Tabs content -->
+                            <div class="card-body justify-content-center mt-5">
+                                <p>LCOE-Berechnung</p>
+                            </div>
+                        </div>
+                        <!-- <a class="ms-2" href="{% url 'quellenDetailsBearbeiten' quelle.id %}"> -->
+                        <a class="ms-2" href="{% url 'servicepreisDetailsBearbeiten' servicePreisDetail.id %}">
+                            <button class="material-symbols-outlined btn bg-primary p-2 mt-2 text-white">
+                                Bearbeiten
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Quelle: {{ quelle.quellenart }}</h4>
+                    <div class="d-flex align-items-center">
+                        Quelle ID: {{ quelle.id }}
+                        <span class="material-symbols-outlined text-white ms-2">
+                            zoom_in
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Quellendatum</h6>
+                            <p>{{ quelle.quellendatum }}</p>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Bemerkung</h6>
+                            {% if quelle.bemerkung %}
+                            <p>{{ quelle.bemerkung }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if quelle.quellenart == "Angebot" %}
+                    <div class="row">
+                        {% for angebot in angebote %}
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Angebotskennung</h6>
+                            {% if angebot.angebotskennung %}
+                            <p>{{ angebot.angebotskennung }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Wetterrisiko</h6>
+                            {% if angebot.wetterrisiko %}
+                            <p>{{ angebot.wetterrisiko }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% elif quelle.quellenart == "Vertrag" %}
+                    <div class="row">
+                        {% for vertrag in vertraege %}
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Vertragskennung</h6>
+                            {% if vertrag.vertragskennung %}
+                            <p>{{ vertrag.vertragskennung }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Wetterrisiko</h6>
+                            {% if vertrag.wetterrisiko %}
+                            <p>{{ vertrag.wetterrisiko }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% elif quelle.quellenart == "Schätzung" %}
+                    <div class="row">
+                        {% for schaetzung in schaetzungen %}
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Schätzer</h6>
+                            {% if schaetzung.schaetzer %}
+                            <p>{{ schaetzung.schaetzer }}</p>
+                            {% else %}
+                            <p>---</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Projekt</h6>
+                            <p>kein Zugriff</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <h6 class="mb-0 fw-bold">Erstellt von</h6>
+                            <p> {{quelle.created_by}} </p>
+                        </div>
+                    </div>
+                    {% for doc in quelleDocs %}
+                    {% if doc.filename %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="mb-2 fw-bold">Datei zur Quelle</h6>
+                            <a class="text-primary" href="#">{{ doc.filename }}</a>
+                            <!-- <a href="#">{{ doc.filename }}</a> -->
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <!-- <span class="material-symbols-outlined btn bg-primary p-2 mt-2 text-white">
+                        edit
+                    </span> -->
+                    <a class="ms-2" href="{% url 'quellenDetailsBearbeiten' quelle.id %}">
+                        <button class="material-symbols-outlined btn bg-primary p-2 mt-2 text-white">
+                            edit
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <!-- MDB für Tab-Option-->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"></script>
+    <script>
+        $("#logout").click(function(){
+            var url = new URL(window.location.href); // mevcut url bilgisini al
+                $.ajax({
+                    url: "{% url 'logout' %}",
+                    method: "POST",
+                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                }).done(function(response) {
+                    window.location = '/';
+                }).fail(function (error) {
+                    console.log(error);
+                });
+            });
+    </script>
+</body>
+
+</html>
